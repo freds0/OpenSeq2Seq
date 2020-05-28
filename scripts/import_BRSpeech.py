@@ -110,7 +110,7 @@ class Extenso:
                     extenso += f' {self.milhares[ternarios - n].singular}' # Se for 1, busca o singular
         return extenso.replace('um mil,', 'mil')
 
-vocab="abcdefghijklmnopqrstuvwxyzçãàáâêéíóôõúû\-123456789 "
+vocab="abcdefghijklmnopqrstuvwxyzçãàáâêéíóôõúû\-0123456789 "
 punctuation = ['…', '...', '"', "'", ';', ',', ':', '.', '!', '?', ')', '(']
 
 ordinals_numbers = {'13º':"décimo terceiro", '8º':"oitavo", '9ª':"nono", '3ª':"terceiro", '18ª':"décimo oitavo", 

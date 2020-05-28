@@ -14,13 +14,13 @@ base_model = Speech2Text
 
 base_params = {
   # from transfer learning set load_model with path model: https://drive.google.com/file/d/12CQvNrTvf0cjTsKjbaWWvdaZb7RxWI6X/view
-    "load_model": "../checkpoints/English/jasper-10x5_dr_sp_novograd_masks/",
+    "load_model": "/home/ubuntu/CyberLabs/ASR/checkpoint-english/jasper-checkpoint/",
     "restore_best_checkpoint": True,
     "random_seed": 0,
     "use_horovod": False,
     "num_epochs": 400,
 
-    "num_gpus": 8,
+    "num_gpus": 2,
     "batch_size_per_gpu": 32,
     "iter_size": 1,
 
@@ -195,9 +195,7 @@ train_params = {
             'width_time_mask': 6,
         },
         "dataset_files": [
-            "/data/librispeech/librivox-train-clean-100.csv",
-            "/data/librispeech/librivox-train-clean-360.csv",
-            "/data/librispeech/librivox-train-other-500.csv"
+            "/home/ubuntu/CyberLabs/ASR/BRSpeech-ASR-beta4-sr16/train_metadata.csv_brspeech3_openseq2seq.csv",
         ],
         "max_duration": 16.7,
         "shuffle": True,
@@ -208,7 +206,7 @@ eval_params = {
     "data_layer": Speech2TextDataLayer,
     "data_layer_params": {
         "dataset_files": [
-            "/data/librispeech/librivox-dev-clean.csv",
+            "/home/ubuntu/CyberLabs/ASR/BRSpeech-ASR-beta4-sr16/test_metadata.csv_brspeech3_openseq2seq.csv",
         ],
         "shuffle": False,
     },
@@ -218,7 +216,7 @@ infer_params = {
     "data_layer": Speech2TextDataLayer,
     "data_layer_params": {
         "dataset_files": [
-            "/data/librispeech/librivox-test-clean.csv",
+            "/home/ubuntu/CyberLabs/ASR/BRSpeech-ASR-beta4-sr16/test_metadata.csv_brspeech3_openseq2seq.csv",
         ],
         "shuffle": False,
     },
