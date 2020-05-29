@@ -17,7 +17,7 @@ RUN python3 -m pip install --upgrade pip
 RUN python3 -m pip install  setuptools
 
 # install OpenSeq2Seq Requeriments
-RUN python3 -m pip install  numpy nltk==3.2.5 resampy pandas==0.23.0 six mpi4py joblib==0.13.2 librosa==0.6.3 python_speech_features matplotlib sentencepiece sacrebleu h5py tqdm
+RUN python3 -m pip install  numpy nltk==3.2.5 resampy pandas==0.23.0 six mpi4py joblib==0.13.2 librosa==0.6.3 python_speech_features matplotlib sentencepiece sacrebleu h5py tqdm future-fstrings 
 
 # install CTC da Baidu a saida esperada final é "Finished processing dependencies for ctc-decoders==1.1"
 RUN bash ./scripts/install_decoders.sh
