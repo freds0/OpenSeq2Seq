@@ -1,0 +1,64 @@
+Tutorial
+
+# install docker 
+sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+sudo apt-key fingerprint 0EBFCD88
+
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+
+sudo apt-get update
+
+
+# use version compatible with nvidia-docker, e.g.:
+DOCKER_CE_VERSION=`apt-cache show nvidia-docker2 | grep -Po "(?<=docker-ce \(= )([^)]*)" | head -n 1`
+sudo apt -yq install docker-ce=${DOCKER_CE_VERSION} docker-ce-cli containerd.io
+
+# if the above command doesn't work use "sudo apt-cache madison docker-ce" and I got version 5:18.09.1~3-0 example on my ubuntu is: docker-ce=5:18.09.1~3-0~ubuntu-bionic so the command works: sudo apt-get install docker-ce=5:18.09.1~3-0~ubuntu-bionic docker-ce-cli containerd.io
+
+# Verify the installation:
+
+sudo docker container run hello-world
+
+# Add yourself to docker group:
+
+sudo usermod -a -G docker $USER
+
+# update  daemon  and docker restart 
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+
+
+# Install nvidia-docker2:
+
+# install dependencies for nvidia docker and nvidia-docker2:
+sudo apt install   nvidia-container-runtime=3.2.0-1 nvidia-container-toolkit=1.1.1-1  libnvidia-container-tools=1.1.1-1 libnvidia-container1=1.1.1-1   nvidia-docker2
+sudo pkill -SIGHUP dockerd
+
+# # if you can't find one of these packages use "sudo apt-cache madison packagename" (example nvidia-container-toolkit) and get a higher version than this
+
+
+# Now take the DockerFile file and place it in the OpenSeq2Seq clone folder (if you don't already have it) and being in the OpenSeq2Seq clone folder run:
+nvidia-docker build ./ -t openseq2seq
+
+
+# After entering the command below and see the image id created now it will be with the name openseq2seq and will usually be the first in the list
+sudo nvidia-docker images
+
+# Now with the ID of the image you took with the command above we will run the contrainer replace 9a74323d5feb with the container id:
+nvidia-docker run  --runtime=nvidia -v ~/:/mnt/  --shm-size=1g --ulimit memlock=-1 --ulimit stack=67108864 -it 9a74323d5feb bash
+
+# everything went perfectly? crtl + d to kill the container or to just minimize it use crtl+p crtl+q
+# to get back take the container id using command: "docker ps" and use the command: docker attach id_container
+
+
